@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+.npm
+
+# build output
+dist/
+build/
+*.tsbuildinfo
+
+# env / secrets — never commit real keys
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# assignment artifacts — kept local, not part of the deliverable
+take-home-assignment-senior-full-stack-engineer.pdf
+trip-orchestrator-prd-and-build-prompts.md

@@ -1,0 +1,23 @@
+{
+  "name": "trip-orchestra",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TripOrchestra — a multi-agent trip planner that routes and chains Destination, Itinerary, and Budget agents.",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm --workspace backend run dev",
+    "dev:frontend": "npm --workspace frontend run dev",
+    "build": "npm --workspace backend run build && npm --workspace frontend run build",
+    "seed": "npm --workspace backend run seed",
+    "test:llm": "npm --workspace backend run test:llm",
+    "test:agents": "npm --workspace backend run test:agents",
+    "test:plan": "npm --workspace backend run test:plan"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+}
+
+@layer utilities {
+  /* Subtle scrollbar for the result column. */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Markdown styling for the synthesised answer (no typography plugin needed). */
+.prose-trip {
+  @apply text-[15px] leading-relaxed text-slate-700;
+}
+.prose-trip > :first-child {
+  margin-top: 0;
+}
+.prose-trip h1,
+.prose-trip h2,
+.prose-trip h3 {
+  @apply mb-2 mt-5 font-semibold text-slate-900;
+}
+.prose-trip h1 {
+  @apply text-xl;
+}
+.prose-trip h2 {
+  @apply text-lg;
+}
+.prose-trip h3 {
+  @apply text-base;
+}
+.prose-trip p {
+  @apply my-2.5;
+}
+.prose-trip ul {
+  @apply my-2.5 list-disc space-y-1 pl-5;
+}
+.prose-trip ol {
+  @apply my-2.5 list-decimal space-y-1 pl-5;
+}
+.prose-trip strong {
+  @apply font-semibold text-slate-900;
+}
+.prose-trip a {
+  @apply text-sky-600 underline;
+}
+.prose-trip code {
+  @apply rounded bg-slate-100 px-1 py-0.5 text-sm text-slate-800;
+}
+.prose-trip table {
+  @apply my-3 w-full border-collapse text-sm;
+}
+.prose-trip th,
+.prose-trip td {
+  @apply border border-slate-200 px-3 py-1.5 text-left;
+}
+.prose-trip blockquote {
+  @apply border-l-4 border-slate-200 pl-4 italic text-slate-500;
+}

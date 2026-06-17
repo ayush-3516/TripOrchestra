@@ -1,0 +1,25 @@
+# deps & build output (reinstalled / rebuilt inside the image)
+node_modules
+**/node_modules
+dist
+**/dist
+*.tsbuildinfo
+
+# secrets — never bake into the image (Railway provides env vars)
+.env
+**/.env
+.env.*
+
+# vcs & local
+.git
+.gitignore
+.github
+
+# editor / OS
+.vscode
+.idea
+.DS_Store
+
+# docs & assignment artifacts not needed at runtime
+*.pdf
+.claude
