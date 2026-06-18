@@ -57,8 +57,9 @@ export function AnswerPanel({ answer, streaming, instant = false }: Props) {
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
+  const reduce = prefersReducedMotion();
   const shown = useTypewriter(answer, instant);
-  const typing = !instant && (streaming || shown.length < answer.length);
+  const typing = !instant && !reduce && (streaming || shown.length < answer.length);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">

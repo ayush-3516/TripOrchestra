@@ -33,4 +33,16 @@ describe('AnswerPanel', () => {
     await userEvent.click(screen.getByRole('button', { name: /copy/i }));
     expect(writeText).toHaveBeenCalledWith('Trip plan body');
   });
+
+  it('does not render the blink cursor under reduced motion even when streaming', () => {
+    preferReducedMotion(true);
+    const { container } = render(<AnswerPanel answer="Some answer" streaming={true} />);
+    expect(container.querySelector('.animate-blink')).toBeNull();
+  });
+
+  it('renders the blink cursor without reduced motion while streaming', () => {
+    preferReducedMotion(false);
+    const { container } = render(<AnswerPanel answer="Some answer" streaming={true} />);
+    expect(container.querySelector('.animate-blink')).not.toBeNull();
+  });
 });
