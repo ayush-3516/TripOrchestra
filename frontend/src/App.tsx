@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Compass, History as HistoryIcon, Loader2, Plus, TriangleAlert } from 'lucide-react';
+import { Compass, History as HistoryIcon, Loader2, Moon, Plus, Sun, TriangleAlert } from 'lucide-react';
 import type { AgentName } from '@shared/types';
 import { ALL_AGENTS } from '@shared/types';
 import { usePlanStream } from './hooks/usePlanStream';
@@ -11,9 +11,11 @@ import { AgentStrip } from './components/AgentStrip';
 import { AnswerPanel } from './components/AnswerPanel';
 import { AttributionCards } from './components/AttributionCards';
 import { HistoryPanel } from './components/HistoryPanel';
+import { useTheme } from './hooks/useTheme';
 
 export default function App() {
   const { state, run, showHistory, reset } = usePlanStream();
+  const { theme, toggle } = useTheme();
   const [historyOpen, setHistoryOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -58,6 +60,13 @@ export default function App() {
                 <Plus className="h-4 w-4" /> New trip
               </button>
             )}
+            <button
+              onClick={toggle}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+            >
+              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <button
               onClick={() => setHistoryOpen(true)}
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
