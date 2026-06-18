@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Compass, History as HistoryIcon, Loader2, Moon, Plus, Sun, TriangleAlert } from 'lucide-react';
+import { Compass, History as HistoryIcon, Loader2, Moon, Plus, Printer, Sun, TriangleAlert } from 'lucide-react';
 import type { AgentName } from '@shared/types';
 import { ALL_AGENTS } from '@shared/types';
 import { usePlanStream } from './hooks/usePlanStream';
@@ -43,7 +43,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
-      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
+      <header className="no-print sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
           <button onClick={reset} className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-indigo-500 text-white">
@@ -55,20 +55,31 @@ export default function App() {
             {!idle && (
               <button
                 onClick={reset}
+                aria-label="New trip"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
               >
                 <Plus className="h-4 w-4" /> <span className="hidden sm:inline">New trip</span>
               </button>
             )}
+            {!idle && (
+              <button
+                onClick={() => window.print()}
+                aria-label="Print or save as PDF"
+                className="no-print inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+              >
+                <Printer className="h-4 w-4" /> <span className="hidden sm:inline">Print</span>
+              </button>
+            )}
             <button
               onClick={toggle}
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+              className="no-print inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             >
               {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
             <button
               onClick={() => setHistoryOpen(true)}
+              aria-label="History"
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             >
               <HistoryIcon className="h-4 w-4" /> <span className="hidden sm:inline">History</span>
@@ -104,7 +115,9 @@ export default function App() {
           </div>
         )}
 
-        <Composer onSubmit={run} disabled={streaming} showExamples={idle} streaming={streaming} onStop={cancel} />
+        <div className="no-print">
+          <Composer onSubmit={run} disabled={streaming} showExamples={idle} streaming={streaming} onStop={cancel} />
+        </div>
 
         {!idle && (
           <div className="mt-6 space-y-5">

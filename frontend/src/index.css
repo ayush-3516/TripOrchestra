@@ -77,3 +77,28 @@
 .prose-trip blockquote {
   @apply border-l-4 border-slate-200 pl-4 italic text-slate-500;
 }
+
+/* Print / Save-as-PDF: hide chrome, show only the result, flatten to one column. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  /* Collapse the two-column results grid for paper. */
+  .grid {
+    display: block !important;
+  }
+  section,
+  .rounded-2xl,
+  .rounded-xl {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}
