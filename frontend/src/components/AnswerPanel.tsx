@@ -53,9 +53,13 @@ interface Props {
 export function AnswerPanel({ answer, streaming, instant = false }: Props) {
   const [copied, setCopied] = useState(false);
   const onCopy = async () => {
-    await navigator.clipboard.writeText(answer);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      await navigator.clipboard.writeText(answer);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable (e.g. insecure origin) — ignore */
+    }
   };
   const reduce = prefersReducedMotion();
   const shown = useTypewriter(answer, instant);

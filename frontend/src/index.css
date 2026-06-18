@@ -75,7 +75,7 @@
   @apply border border-slate-200 px-3 py-1.5 text-left dark:border-slate-700;
 }
 .prose-trip blockquote {
-  @apply border-l-4 border-slate-200 pl-4 italic text-slate-500;
+  @apply border-l-4 border-slate-200 dark:border-slate-700 pl-4 italic text-slate-500 dark:text-slate-400;
 }
 
 /* Print / Save-as-PDF: hide chrome, show only the result, flatten to one column. */
@@ -100,5 +100,14 @@
   .rounded-xl {
     box-shadow: none !important;
     break-inside: avoid;
+  }
+  /* Force a light rendering on paper even when the app is in dark mode. */
+  html.dark [class*="dark:bg-"] {
+    background: #fff !important;
+  }
+  html.dark [class*="dark:text-"],
+  html.dark .prose-trip,
+  html.dark .prose-trip * {
+    color: #000 !important;
   }
 }
