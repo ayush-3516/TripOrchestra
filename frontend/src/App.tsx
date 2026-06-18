@@ -57,7 +57,7 @@ export default function App() {
                 onClick={reset}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
               >
-                <Plus className="h-4 w-4" /> New trip
+                <Plus className="h-4 w-4" /> <span className="hidden sm:inline">New trip</span>
               </button>
             )}
             <button
@@ -71,13 +71,13 @@ export default function App() {
               onClick={() => setHistoryOpen(true)}
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             >
-              <HistoryIcon className="h-4 w-4" /> History
+              <HistoryIcon className="h-4 w-4" /> <span className="hidden sm:inline">History</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 py-8">
+      <main className={`mx-auto px-4 py-8 ${idle ? 'max-w-3xl' : 'max-w-6xl'}`}>
         {idle && (
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
@@ -125,24 +125,25 @@ export default function App() {
 
             {waitingForAnswer && (
               <div className="flex items-center gap-2 text-sm text-slate-400">
-                <Loader2 className="h-4 w-4 animate-spin" /> Agents are working…
+                <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" /> Agents are working…
               </div>
             )}
 
-            {showAnswer && (
-              <AnswerPanel
-                answer={state.answer}
-                streaming={streaming}
-                instant={state.fromHistory || state.phase === 'error'}
+            <div className="grid gap-5 lg:grid-cols-2 lg:items-start">
+              {showAnswer && (
+                <AnswerPanel
+                  answer={state.answer}
+                  streaming={streaming}
+                  instant={state.fromHistory || state.phase === 'error'}
+                />
+              )}
+              <AttributionCards
+                order={order}
+                outputs={state.outputs}
+                agentStatus={state.agentStatus}
+                contributions={state.contributions}
               />
-            )}
-
-            <AttributionCards
-              order={order}
-              outputs={state.outputs}
-              agentStatus={state.agentStatus}
-              contributions={state.contributions}
-            />
+            </div>
           </div>
         )}
       </main>

@@ -100,7 +100,7 @@ export function HistoryPanel({ open, onClose, onSelect, refreshKey }: Props) {
         <div className="scrollbar-thin flex-1 overflow-y-auto p-4">
           {loading && (
             <div className="flex items-center justify-center gap-2 py-10 text-slate-400">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+              <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" /> Loading…
             </div>
           )}
           {error && <p className="px-1 py-8 text-center text-sm text-rose-600">{error}</p>}

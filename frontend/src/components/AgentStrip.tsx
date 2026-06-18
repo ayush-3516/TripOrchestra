@@ -29,7 +29,7 @@ export function AgentStrip({ order, agentStatus }: Props) {
               }`}
             >
               <span className="flex h-4 w-4 items-center justify-center">
-                {running && <Loader2 className="h-4 w-4 animate-spin" />}
+                {running && <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" />}
                 {done && <Check className="h-4 w-4" />}
                 {errored && <AlertTriangle className="h-4 w-4 text-amber-500" />}
                 {state === 'queued' && <span className={`h-2 w-2 rounded-full ${meta.dot} opacity-40`} />}
