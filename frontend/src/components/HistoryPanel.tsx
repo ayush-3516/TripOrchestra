@@ -48,7 +48,7 @@ export function HistoryPanel({ open, onClose, onSelect, refreshKey }: Props) {
     if (!open) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
-    panel?.querySelector<HTMLElement>('button, [href], input, [tabindex]')?.focus();
+    panel?.querySelector<HTMLElement>('button, [href], input, [tabindex]:not([tabindex="-1"])')?.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
