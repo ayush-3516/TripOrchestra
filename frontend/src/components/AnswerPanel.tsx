@@ -1,21 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Sparkles } from 'lucide-react';
+import { Check, Copy, Sparkles } from 'lucide-react';
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 /**
  * Reveals `target` as smooth typing. Gemini streams in a handful of largish
  * chunks; this paces them into a continuous reveal that always catches up and
  * finishes. `instant` shows the full text immediately (e.g. a past request).
+ * When the user prefers reduced motion the full text is shown immediately.
  */
 function useTypewriter(target: string, instant: boolean): string {
-  const [shown, setShown] = useState(instant ? target : '');
-  const idx = useRef(instant ? target.length : 0);
+  const reduce = prefersReducedMotion();
+  const skip = instant || reduce;
+  const [shown, setShown] = useState(skip ? target : '');
+  const idx = useRef(skip ? target.length : 0);
   const targetRef = useRef(target);
   targetRef.current = target;
 
   useEffect(() => {
-    if (instant) {
+    if (skip) {
       idx.current = targetRef.current.length;
       setShown(targetRef.current);
       return;
@@ -24,7 +31,6 @@ function useTypewriter(target: string, instant: boolean): string {
     const tick = () => {
       const t = targetRef.current;
       if (idx.current < t.length) {
-        // Reveal faster when far behind so it tracks the stream, slower near the end.
         idx.current = Math.min(t.length, idx.current + Math.max(2, Math.round((t.length - idx.current) / 22)));
         setShown(t.slice(0, idx.current));
       }
@@ -32,7 +38,7 @@ function useTypewriter(target: string, instant: boolean): string {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [instant]);
+  }, [skip]);
 
   return shown;
 }
@@ -45,14 +51,30 @@ interface Props {
 
 /** The synthesised narrative, rendered as markdown with a live typing cursor. */
 export function AnswerPanel({ answer, streaming, instant = false }: Props) {
+  const [copied, setCopied] = useState(false);
+  const onCopy = async () => {
+    await navigator.clipboard.writeText(answer);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
   const shown = useTypewriter(answer, instant);
   const typing = !instant && (streaming || shown.length < answer.length);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400">
-        <Sparkles className="h-4 w-4 text-indigo-500" />
-        Synthesised answer
+      <div className="mb-3 flex items-center justify-between gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400">
+        <span className="flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-indigo-500" />
+          Synthesised answer
+        </span>
+        <button
+          onClick={onCopy}
+          aria-label="Copy answer"
+          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? 'Copied' : 'Copy'}
+        </button>
       </div>
       <div className="prose-trip">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{instant ? answer : shown}</ReactMarkdown>
