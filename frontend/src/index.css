@@ -77,37 +77,3 @@
 .prose-trip blockquote {
   @apply border-l-4 border-slate-200 dark:border-slate-700 pl-4 italic text-slate-500 dark:text-slate-400;
 }
-
-/* Print / Save-as-PDF: hide chrome, show only the result, flatten to one column. */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  body {
-    background: #fff !important;
-    color: #000 !important;
-  }
-  main {
-    max-width: 100% !important;
-    padding: 0 !important;
-  }
-  /* Collapse the two-column results grid for paper. */
-  .grid {
-    display: block !important;
-  }
-  section,
-  .rounded-2xl,
-  .rounded-xl {
-    box-shadow: none !important;
-    break-inside: avoid;
-  }
-  /* Force a light rendering on paper even when the app is in dark mode. */
-  html.dark [class*="dark:bg-"] {
-    background: #fff !important;
-  }
-  html.dark [class*="dark:text-"],
-  html.dark .prose-trip,
-  html.dark .prose-trip * {
-    color: #000 !important;
-  }
-}
