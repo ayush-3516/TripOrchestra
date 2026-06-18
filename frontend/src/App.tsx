@@ -14,7 +14,7 @@ import { HistoryPanel } from './components/HistoryPanel';
 import { useTheme } from './hooks/useTheme';
 
 export default function App() {
-  const { state, run, showHistory, reset } = usePlanStream();
+  const { state, run, showHistory, reset, cancel } = usePlanStream();
   const { theme, toggle } = useTheme();
   const [historyOpen, setHistoryOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -104,7 +104,7 @@ export default function App() {
           </div>
         )}
 
-        <Composer onSubmit={run} disabled={streaming} showExamples={idle} />
+        <Composer onSubmit={run} disabled={streaming} showExamples={idle} streaming={streaming} onStop={cancel} />
 
         {!idle && (
           <div className="mt-6 space-y-5">

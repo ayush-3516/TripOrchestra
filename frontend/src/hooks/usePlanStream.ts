@@ -50,6 +50,7 @@ type Action =
   | { kind: 'event'; event: PlanStreamEvent }
   | { kind: 'fail'; message: string }
   | { kind: 'hydrate'; state: PlanState }
+  | { kind: 'cancel' }
   | { kind: 'reset' };
 
 function setAgent(
@@ -101,7 +102,7 @@ function reduceEvent(state: PlanState, event: PlanStreamEvent): PlanState {
   }
 }
 
-function reducer(state: PlanState, action: Action): PlanState {
+export function reducer(state: PlanState, action: Action): PlanState {
   switch (action.kind) {
     case 'start':
       return { ...initialState, phase: 'streaming', query: action.query };
@@ -111,6 +112,8 @@ function reducer(state: PlanState, action: Action): PlanState {
       return { ...state, phase: 'error', errorMessage: action.message };
     case 'hydrate':
       return action.state;
+    case 'cancel':
+      return state.phase === 'streaming' ? { ...state, phase: 'done' } : state;
     case 'reset':
       return initialState;
   }
@@ -166,5 +169,10 @@ export function usePlanStream() {
     dispatch({ kind: 'reset' });
   }, []);
 
-  return { state, run, showHistory, reset };
+  const cancel = useCallback(() => {
+    abortRef.current?.abort();
+    dispatch({ kind: 'cancel' });
+  }, []);
+
+  return { state, run, showHistory, reset, cancel };
 }
