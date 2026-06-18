@@ -55,19 +55,19 @@ export function AttributionCards({ order, outputs, agentStatus, contributions }:
         const meta = AGENT_META[agent];
         const summary = contributions.find((c) => c.agent === agent)?.summary;
         return (
-          <section key={agent} className="animate-fade-in-up rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <section key={agent} className="animate-fade-in-up rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div className="mb-3 flex items-start gap-3">
               <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${meta.iconBg}`}>
                 <meta.Icon className="h-5 w-5" />
               </span>
               <div className="min-w-0">
-                <div className="font-semibold text-slate-800">{meta.label} Agent</div>
-                {summary && !errored && <div className="text-sm text-slate-500">{summary}</div>}
+                <div className="font-semibold text-slate-800 dark:text-slate-100">{meta.label} Agent</div>
+                {summary && !errored && <div className="text-sm text-slate-500 dark:text-slate-400">{summary}</div>}
               </div>
             </div>
 
             {errored ? (
-              <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+              <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>This agent failed and was skipped: {error}</span>
               </div>

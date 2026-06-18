@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent } from 'react';
-import { ArrowUp, Sparkles } from 'lucide-react';
+import { ArrowUp, Sparkles, Square } from 'lucide-react';
 
 const EXAMPLES = [
   'A five day trip somewhere warm in Europe for under £1500',
@@ -12,9 +12,11 @@ interface Props {
   onSubmit: (query: string) => void;
   disabled: boolean;
   showExamples: boolean;
+  streaming: boolean;
+  onStop: () => void;
 }
 
-export function Composer({ onSubmit, disabled, showExamples }: Props) {
+export function Composer({ onSubmit, disabled, showExamples, streaming, onStop }: Props) {
   const [value, setValue] = useState('');
 
   const submit = (q: string) => {
@@ -31,7 +33,7 @@ export function Composer({ onSubmit, disabled, showExamples }: Props) {
 
   return (
     <div>
-      <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm focus-within:border-sky-300 focus-within:ring-2 focus-within:ring-sky-100">
+      <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm focus-within:border-sky-300 focus-within:ring-2 focus-within:ring-sky-100 dark:border-slate-700 dark:bg-slate-800">
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -39,16 +41,26 @@ export function Composer({ onSubmit, disabled, showExamples }: Props) {
           rows={2}
           disabled={disabled}
           placeholder="Describe your trip — where, how long, what you like, your budget…"
-          className="max-h-40 flex-1 resize-none bg-transparent px-3 py-2 text-slate-800 placeholder:text-slate-400 focus:outline-none disabled:opacity-60"
+          className="max-h-40 flex-1 resize-none bg-transparent px-3 py-2 text-slate-800 placeholder:text-slate-400 focus:outline-none disabled:opacity-60 dark:text-slate-100 dark:placeholder:text-slate-500"
         />
-        <button
-          onClick={() => submit(value)}
-          disabled={disabled || !value.trim()}
-          aria-label="Plan trip"
-          className="mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 text-white shadow transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <ArrowUp className="h-5 w-5" />
-        </button>
+        {streaming ? (
+          <button
+            onClick={onStop}
+            aria-label="Stop"
+            className="mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-500 text-white shadow transition hover:bg-rose-600"
+          >
+            <Square className="h-4 w-4" fill="currentColor" />
+          </button>
+        ) : (
+          <button
+            onClick={() => submit(value)}
+            disabled={disabled || !value.trim()}
+            aria-label="Plan trip"
+            className="mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 text-white shadow transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <ArrowUp className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       {showExamples && (
@@ -61,7 +73,7 @@ export function Composer({ onSubmit, disabled, showExamples }: Props) {
               key={ex}
               onClick={() => submit(ex)}
               disabled={disabled}
-              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 transition hover:border-sky-300 hover:text-sky-700 disabled:opacity-50"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 transition hover:border-sky-300 hover:text-sky-700 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-sky-500 dark:hover:text-sky-300"
             >
               {ex}
             </button>

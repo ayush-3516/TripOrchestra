@@ -12,9 +12,9 @@ export function DestinationCards({ data }: { data: DestinationOutput }) {
     <div className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         {data.suggestions.map((s) => (
-          <div key={`${s.name}-${s.country}`} className="rounded-xl border border-slate-200 bg-white p-4">
+          <div key={`${s.name}-${s.country}`} className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
             <div className="flex items-start justify-between gap-2">
-              <div className="flex items-center gap-1.5 font-semibold text-slate-800">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-100">
                 <MapPin className="h-4 w-4 text-sky-500" />
                 {s.name}
                 <span className="font-normal text-slate-400">· {s.country}</span>
@@ -23,11 +23,11 @@ export function DestinationCards({ data }: { data: DestinationOutput }) {
                 {s.estCostBand}
               </span>
             </div>
-            <p className="mt-2 text-sm text-slate-600">{s.justification}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{s.justification}</p>
           </div>
         ))}
       </div>
-      {data.notes && <p className="text-sm italic text-slate-500">{data.notes}</p>}
+      {data.notes && <p className="text-sm italic text-slate-500 dark:text-slate-400">{data.notes}</p>}
     </div>
   );
 }

@@ -25,25 +25,25 @@ export function BudgetBreakdown({ data }: { data: BudgetOutput }) {
   const within = data.withinBudget;
   return (
     <div className="space-y-3">
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
         <table className="w-full text-sm">
           <tbody>
             {ROWS.map(({ key, label, Icon }) => (
-              <tr key={key} className="border-b border-slate-100 last:border-0">
-                <td className="px-4 py-2 text-slate-600">
+              <tr key={key} className="border-b border-slate-100 last:border-0 dark:border-slate-700">
+                <td className="px-4 py-2 text-slate-600 dark:text-slate-300">
                   <span className="inline-flex items-center gap-2">
                     <Icon className="h-4 w-4 text-slate-400" />
                     {label}
                   </span>
                 </td>
-                <td className="px-4 py-2 text-right font-medium text-slate-800">
+                <td className="px-4 py-2 text-right font-medium text-slate-800 dark:text-slate-100">
                   {money(data.breakdown[key], data.currency)}
                 </td>
               </tr>
             ))}
-            <tr className="bg-slate-50">
-              <td className="px-4 py-2.5 font-semibold text-slate-700">Estimated total</td>
-              <td className="px-4 py-2.5 text-right text-base font-bold text-slate-900">
+            <tr className="bg-slate-50 dark:bg-slate-900">
+              <td className="px-4 py-2.5 font-semibold text-slate-700 dark:text-slate-100">Estimated total</td>
+              <td className="px-4 py-2.5 text-right text-base font-bold text-slate-900 dark:text-slate-100">
                 {money(data.estimatedTotal, data.currency)}
               </td>
             </tr>
@@ -53,7 +53,7 @@ export function BudgetBreakdown({ data }: { data: BudgetOutput }) {
 
       <div
         className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium ${
-          within ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+          within ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300' : 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300'
         }`}
       >
         {within ? <CheckCircle2 className="h-4 w-4" /> : <TriangleAlert className="h-4 w-4" />}

@@ -5,25 +5,25 @@ export function ItineraryTimeline({ data }: { data: ItineraryOutput }) {
   return (
     <div className="space-y-4">
       {data.days.map((day) => (
-        <div key={day.day} className="rounded-xl border border-slate-200 bg-white p-4">
+        <div key={day.day} className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
           <div className="mb-3 flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-100 text-sm font-bold text-violet-700">
               {day.day}
             </span>
-            <span className="font-semibold text-slate-800">{day.theme}</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">{day.theme}</span>
           </div>
-          <ol className="space-y-3 border-l border-slate-200 pl-4">
+          <ol className="space-y-3 border-l border-slate-200 pl-4 dark:border-slate-700">
             {day.activities.map((a, idx) => (
               <li key={idx} className="relative">
-                <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-violet-400 ring-4 ring-white" />
+                <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-violet-400 ring-4 ring-white dark:ring-slate-800" />
                 <div className="flex flex-wrap items-center gap-x-2 text-sm">
-                  <span className="inline-flex items-center gap-1 font-medium text-slate-700">
+                  <span className="inline-flex items-center gap-1 font-medium text-slate-700 dark:text-slate-200">
                     <Clock className="h-3.5 w-3.5 text-slate-400" />
                     {a.time}
                   </span>
-                  <span className="text-slate-800">{a.activity}</span>
+                  <span className="text-slate-800 dark:text-slate-200">{a.activity}</span>
                 </div>
-                <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-slate-500">
+                <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-slate-500 dark:text-slate-400">
                   <span className="inline-flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
                     {a.location}
@@ -42,12 +42,12 @@ export function ItineraryTimeline({ data }: { data: ItineraryOutput }) {
       ))}
 
       {data.uncertaintyNotes.length > 0 && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
-          <div className="flex items-center gap-1.5 text-sm font-semibold text-amber-800">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 dark:border-amber-900 dark:bg-amber-950/40">
+          <div className="flex items-center gap-1.5 text-sm font-semibold text-amber-800 dark:text-amber-300">
             <AlertTriangle className="h-4 w-4" />
             Flagged as uncertain
           </div>
-          <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-amber-700">
+          <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-amber-700 dark:text-amber-300">
             {data.uncertaintyNotes.map((n, i) => (
               <li key={i}>{n}</li>
             ))}
