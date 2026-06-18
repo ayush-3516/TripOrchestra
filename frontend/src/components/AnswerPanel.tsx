@@ -49,8 +49,8 @@ export function AnswerPanel({ answer, streaming, instant = false }: Props) {
   const typing = !instant && (streaming || shown.length < answer.length);
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-500">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400">
         <Sparkles className="h-4 w-4 text-indigo-500" />
         Synthesised answer
       </div>

@@ -25,7 +25,7 @@ export function AgentStrip({ order, agentStatus }: Props) {
               className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition ${
                 done || running || errored
                   ? `${meta.chipBg} ${meta.chipText} ${meta.chipRing}`
-                  : 'bg-slate-50 text-slate-400 ring-slate-200'
+                  : 'bg-slate-50 text-slate-400 ring-slate-200 dark:bg-slate-800 dark:text-slate-500 dark:ring-slate-700'
               }`}
             >
               <span className="flex h-4 w-4 items-center justify-center">
@@ -36,7 +36,7 @@ export function AgentStrip({ order, agentStatus }: Props) {
               </span>
               {meta.label}
             </div>
-            {i < order.length - 1 && <span className="text-slate-300">→</span>}
+            {i < order.length - 1 && <span className="text-slate-300 dark:text-slate-600">→</span>}
           </div>
         );
       })}

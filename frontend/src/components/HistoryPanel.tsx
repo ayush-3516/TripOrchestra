@@ -47,10 +47,10 @@ export function HistoryPanel({ open, onClose, onSelect, refreshKey }: Props) {
   return (
     <div className="fixed inset-0 z-30">
       <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm" onClick={onClose} />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
-        <header className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-          <h2 className="font-semibold text-slate-800">Request history</h2>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100" aria-label="Close">
+      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl dark:bg-slate-900">
+        <header className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-slate-800">
+          <h2 className="font-semibold text-slate-800 dark:text-slate-100">Request history</h2>
+          <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close">
             <X className="h-5 w-5" />
           </button>
         </header>
@@ -74,10 +74,10 @@ export function HistoryPanel({ open, onClose, onSelect, refreshKey }: Props) {
                     onSelect(it.id);
                     onClose();
                   }}
-                  className="w-full rounded-xl border border-slate-200 p-3 text-left transition hover:border-sky-300 hover:bg-sky-50/40"
+                  className="w-full rounded-xl border border-slate-200 p-3 text-left transition hover:border-sky-300 hover:bg-sky-50/40 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-sky-950/30"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <p className="line-clamp-2 text-sm font-medium text-slate-700">{it.rawQuery}</p>
+                    <p className="line-clamp-2 text-sm font-medium text-slate-700 dark:text-slate-200">{it.rawQuery}</p>
                     <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${STATUS_STYLE[it.status]}`}>
                       {it.status}
                     </span>
