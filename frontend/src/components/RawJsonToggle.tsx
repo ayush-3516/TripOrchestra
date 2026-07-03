@@ -8,7 +8,7 @@ export function RawJsonToggle({ data }: { data: unknown }) {
     <div className="mt-3">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition hover:text-slate-600 dark:hover:text-slate-300"
+        className="-my-2.5 inline-flex items-center gap-1.5 py-2.5 text-xs font-medium text-slate-400 transition hover:text-slate-600 dark:hover:text-slate-300"
       >
         <Braces className="h-3.5 w-3.5" />
         {open ? 'Hide' : 'Show'} raw output
