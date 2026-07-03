@@ -15,7 +15,7 @@ export function RawJsonToggle({ data }: { data: unknown }) {
         <ChevronDown className={`h-3.5 w-3.5 transition ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <pre className="scrollbar-thin mt-2 max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-[11px] leading-relaxed text-slate-200">
+        <pre className="scrollbar-thin mt-2 max-h-72 max-w-full overflow-auto rounded-lg bg-slate-900 p-3 text-[11px] leading-relaxed text-slate-200">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}

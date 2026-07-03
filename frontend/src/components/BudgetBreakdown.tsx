@@ -26,29 +26,31 @@ export function BudgetBreakdown({ data }: { data: BudgetOutput }) {
   return (
     <div className="space-y-3">
       <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
-        <table className="w-full text-sm">
-          <tbody>
-            {ROWS.map(({ key, label, Icon }) => (
-              <tr key={key} className="border-b border-slate-100 last:border-0 dark:border-slate-700">
-                <td className="px-4 py-2 text-slate-600 dark:text-slate-300">
-                  <span className="inline-flex items-center gap-2">
-                    <Icon className="h-4 w-4 text-slate-400" />
-                    {label}
-                  </span>
-                </td>
-                <td className="px-4 py-2 text-right font-medium text-slate-800 dark:text-slate-100">
-                  {money(data.breakdown[key], data.currency)}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[320px] text-sm">
+            <tbody>
+              {ROWS.map(({ key, label, Icon }) => (
+                <tr key={key} className="border-b border-slate-100 last:border-0 dark:border-slate-700">
+                  <td className="px-4 py-2 text-slate-600 dark:text-slate-300">
+                    <span className="inline-flex items-center gap-2">
+                      <Icon className="h-4 w-4 text-slate-400" />
+                      {label}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 text-right font-medium text-slate-800 dark:text-slate-100">
+                    {money(data.breakdown[key], data.currency)}
+                  </td>
+                </tr>
+              ))}
+              <tr className="bg-slate-50 dark:bg-slate-900">
+                <td className="px-4 py-2.5 font-semibold text-slate-700 dark:text-slate-100">Estimated total</td>
+                <td className="px-4 py-2.5 text-right text-base font-bold text-slate-900 dark:text-slate-100">
+                  {money(data.estimatedTotal, data.currency)}
                 </td>
               </tr>
-            ))}
-            <tr className="bg-slate-50 dark:bg-slate-900">
-              <td className="px-4 py-2.5 font-semibold text-slate-700 dark:text-slate-100">Estimated total</td>
-              <td className="px-4 py-2.5 text-right text-base font-bold text-slate-900 dark:text-slate-100">
-                {money(data.estimatedTotal, data.currency)}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div
