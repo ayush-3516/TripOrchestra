@@ -51,10 +51,11 @@ rather than re-architecting it.
   trigger, etc.) up to a ~44px comfortable tap target on touch devices,
   matching the existing 40px buttons elsewhere.
 
-### 5. Breakpoint verification
-- Confirm the `lg:` two-column results split (from the 2026-06-18 pass)
-  collapses cleanly with no awkward in-between state from ~480px through the
-  `lg` breakpoint, including large-phone landscape widths.
+### 5. Breakpoint verification — superseded
+- The 2026-06-18 pass's `lg:` two-column results split was reverted in a
+  later commit that same day (`bfd4a34`: "revert the two-column ... single
+  centered readable column"). The results view is already single-column at
+  all widths, so there is no split to verify. This item is dropped.
 
 ## Non-goals
 
