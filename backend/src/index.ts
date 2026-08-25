@@ -43,6 +43,13 @@ export function createApp() {
   return app;
 }
 
+// Vercel invokes the module's default export as its serverless function. Express
+// apps are request handlers, so the app itself is the correct export shape.
+// Creating it once also lets a warm serverless instance reuse the router setup.
+const app = createApp();
+
+export default app;
+
 async function main() {
   // Connect to Mongo up front, but don't let a DB outage stop the server from
   // booting — health then reports "disconnected" and plan calls fail loudly.
@@ -55,13 +62,23 @@ async function main() {
     );
   }
 
-  const app = createApp();
   app.listen(config.port, () => {
     console.log(`TripOrchestra API listening on http://localhost:${config.port}`);
   });
 }
 
-main().catch((err) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
-});
+if (process.env.VERCEL) {
+  // Do not call listen() in a Vercel function. Start connecting during cold
+  // start; connectDB is a singleton, so warm invocations reuse the connection.
+  connectDB().catch((err) => {
+    console.error(
+      '[startup] MongoDB connection failed — continuing so /api/health is reachable:',
+      err instanceof Error ? err.message : err,
+    );
+  });
+} else {
+  main().catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });
+}
