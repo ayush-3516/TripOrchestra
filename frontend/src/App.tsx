@@ -45,13 +45,13 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <button onClick={reset} className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-indigo-500 text-white">
+          <button onClick={reset} className="flex shrink-0 items-center gap-2">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-indigo-500 text-white">
               <Compass className="h-5 w-5" />
             </span>
-            <span className="text-lg font-bold tracking-tight text-slate-800 dark:text-slate-100">TripOrchestra</span>
+            <span className="hidden text-lg font-bold tracking-tight text-slate-800 dark:text-slate-100 sm:inline">TripOrchestra</span>
           </button>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             {!idle && (
               <button
                 onClick={reset}

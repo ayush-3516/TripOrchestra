@@ -92,7 +92,7 @@ export function HistoryPanel({ open, onClose, onSelect, refreshKey }: Props) {
       >
         <header className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-slate-800">
           <h2 className="font-semibold text-slate-800 dark:text-slate-100">Request history</h2>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close">
+          <button onClick={onClose} className="flex h-11 w-11 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close">
             <X className="h-5 w-5" />
           </button>
         </header>

@@ -64,8 +64,8 @@ export function Composer({ onSubmit, disabled, showExamples, streaming, onStop }
       </div>
 
       {showExamples && (
-        <div className="mt-3 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-400">
+        <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
+          <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-slate-400">
             <Sparkles className="h-3.5 w-3.5" /> Try
           </span>
           {EXAMPLES.map((ex) => (
@@ -73,7 +73,7 @@ export function Composer({ onSubmit, disabled, showExamples, streaming, onStop }
               key={ex}
               onClick={() => submit(ex)}
               disabled={disabled}
-              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 transition hover:border-sky-300 hover:text-sky-700 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-sky-500 dark:hover:text-sky-300"
+              className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 transition hover:border-sky-300 hover:text-sky-700 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-sky-500 dark:hover:text-sky-300"
             >
               {ex}
             </button>
