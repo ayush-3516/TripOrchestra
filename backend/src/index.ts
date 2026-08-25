@@ -8,6 +8,7 @@ import { connectDB } from './db';
 import healthRouter from './routes/health';
 import planRouter from './routes/plan';
 import historyRouter from './routes/history';
+import { requireDatabase } from './middleware/database';
 import { errorHandler, notFound } from './middleware/error';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,8 +24,8 @@ export function createApp() {
   app.use(express.json({ limit: '256kb' }));
 
   app.use('/api', healthRouter);
-  app.use('/api', planRouter);
-  app.use('/api', historyRouter);
+  app.use('/api', requireDatabase, planRouter);
+  app.use('/api', requireDatabase, historyRouter);
 
   // In production, serve the built frontend from the same container (single
   // Railway service). In dev the Vite server serves it and proxies /api here.
